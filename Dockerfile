@@ -5,9 +5,6 @@
 #   docker run \
 #       -e PROGRAM=<deagg | deagg-epsilon | deagg-iml | hazard | hazard-2018 | rate> \
 #       -e MODEL=<WUS-20[08|14|18] | CEUS-20[08|14|18] | COUS-20[08|14|18] | AK-2007> \
-#       -e ACCESS_VISUALVM=<true | false> \
-#       -e VISUALVM_PORT=<port> \
-#       -e VISUALVM_HOSTNAME=<hostname> \
 #       -v /absolute/path/to/sites/file:/app/sites.<geojson | csv> \
 #       -v /absolute/path/to/config/file:/app/config.json \
 #       -v /absolute/path/to/output:/app/output \
@@ -16,9 +13,6 @@
 # Usage with custom model:
 #   docker run \
 #       -e PROGRAM=<deagg | deagg-epsilon | deagg-iml | hazard | hazard-2018 | rate> \
-#       -e ACCESS_VISUALVM=<true | false> \
-#       -e VISUALVM_PORT=<port> \
-#       -e VISUALVM_HOSTNAME=<hostname> \
 #       -e MOUNT_MODEL=true \
 #       -v /absolute/path/to/model:/app/model \
 #       -v /absolute/path/to/sites/file:/app/sites.<geojson | csv> \
@@ -116,15 +110,6 @@ ENV IML ""
 # Optional config file
 ENV CONFIG_FILE "config.json"
 
-# Whether to have access to Java VisualVM
-ENV ACCESS_VISUALVM false
-
-# Port for Java VisualVM
-ENV VISUALVM_PORT 9090
-
-# Java VisualVM hostname
-ENV VISUALVM_HOSTNAME localhost
-
 # Set volume for output
 VOLUME [ "/app/output" ]
 
@@ -133,6 +118,3 @@ RUN echo "{}" > ${CONFIG_FILE}
 
 # Run nshmp-haz
 ENTRYPOINT [ "bash", "docker-entrypoint.sh" ]
-
-# Expose Java VisualVM port
-EXPOSE ${VISUALVM_PORT}

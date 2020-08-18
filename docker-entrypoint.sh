@@ -89,22 +89,8 @@ main() {
   # Monitor log file
   tail -f ${LOG_FILE} & 
 
-  # Set Java VisualVM
-  local visualvm_opts="";
-  if [ ${ACCESS_VISUALVM} = true ]; then
-    visualvm_opts="-Dcom.sun.management.jmxremote
-      -Dcom.sun.management.jmxremote.rmi.port=${VISUALVM_PORT}
-      -Dcom.sun.management.jmxremote.port=${VISUALVM_PORT}
-      -Dcom.sun.management.jmxremote.ssl=false
-      -Dcom.sun.management.jmxremote.authenticate=false
-      -Dcom.sun.management.jmxremote.local.only=false
-      -Djava.rmi.server.hostname=${VISUALVM_HOSTNAME}
-    ";
-  fi
-
   # Run nshmp-haz
   java -Xms${JAVA_XMS} -Xmx${JAVA_XMX} \
-      ${visualvm_opts} \
       -cp nshmp-haz.jar \
       gov.usgs.earthquake.nshmp.${nshmp_program} \
       "${nshmp_model_path}" \
